@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CarModel} from '../../models/car.model';
 import {BackendQueryService} from '../../services/backend-query.service';
+import {WarehouseModel} from '../../models/warehouse.model';
 
 @Component({
   selector: 'app-car-list',
@@ -10,10 +11,13 @@ import {BackendQueryService} from '../../services/backend-query.service';
 export class CarListComponent implements OnInit {
   cars: CarModel[] = [];
   currentCar?: CarModel;
+  currentCarsWarehouse?: WarehouseModel;
 
-  title = '';
-  page = 1;
-  count = 0;
+  selectionText = 'Select a car';
+  currentIndex = -1;
+
+  page = 0;
+  count = 5;
   pageSize = 5;
   pageSizes = [5, 10, 15];
 
@@ -24,13 +28,9 @@ export class CarListComponent implements OnInit {
     this.retrieveCars();
   }
 
-  getRequestParams(searchTitle: string, page: number, pageSize: number): any {
+  getRequestParams(page: number, pageSize: number): any {
     // tslint:disable-next-line:prefer-const
     let params: any = {};
-
-    if (searchTitle) {
-      params[`title`] = searchTitle;
-    }
 
     if (page) {
       params[`page`] = page - 1;
@@ -44,7 +44,7 @@ export class CarListComponent implements OnInit {
   }
 
   retrieveCars(): void {
-    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+    const params = this.getRequestParams(this.page, this.pageSize);
 
     this.backendQueryService.getAllCarsSorted(params)
       .subscribe(
@@ -68,5 +68,32 @@ export class CarListComponent implements OnInit {
     this.pageSize = event.target.value;
     this.page = 1;
     this.retrieveCars();
+  }
+
+  retrieveWarehouse(id): any {
+    // tslint:disable-next-line:prefer-const
+    let params: any = {};
+    params[`id`] = id;
+    this.backendQueryService.getWarehouseById(params)
+      .subscribe(
+        response => {
+          console.log(response);
+          return response;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  setActiveCar(car: CarModel, i: number): void {
+    if (car.is_licensed) {
+      this.currentCar = car;
+      this.currentCarsWarehouse = this.retrieveWarehouse(car.warehouse_id);
+      this.selectionText = 'Selected car:';
+    } else {
+      this.currentCar = null;
+      this.currentCarsWarehouse = null;
+      this.selectionText = 'This car is not licensed for sale.';
+    }
   }
 }

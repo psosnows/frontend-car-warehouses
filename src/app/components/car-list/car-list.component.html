@@ -23,7 +23,8 @@
                   };
             let i = index
           "
-
+        [class.active]="i == currentIndex"
+        (click)="setActiveCar(car, i)"
       >
         {{ car.make }} - {{ car.year_model }}
       </li>
@@ -37,6 +38,45 @@
         {{ size }}
       </option>
     </select>
+  </div>
+
+  <div class="col-md-6">
+    <h4>{{selectionText}}</h4>
+    <div *ngIf="currentCar">
+      <div>
+        <label><strong>Car:</strong></label> {{ currentCar.make }}: {{currentCar.year_model}}
+      </div>
+      <div>
+        <label><strong>Model:</strong></label>
+        {{ currentCar.model }}
+      </div>
+      <div>
+        <label><strong>Price:</strong></label>
+        {{ currentCar.price }}
+      </div>
+      <div>
+        <label><strong>Available since:</strong></label>
+        {{ currentCar.date_added }}
+      </div>
+    </div>
+    <div *ngIf="currentCarsWarehouse">
+      <div>
+        <label><strong>Located in:</strong></label>
+        {{ currentCarsWarehouse.name }}
+      </div>
+      <div>
+        <label><strong>Coords:</strong></label>
+        Lon, lat: {{currentCarsWarehouse.coords.lon}}, {{currentCarsWarehouse.coords.lat}}
+      </div>
+      <div>
+        <label><strong>At:</strong></label>
+        {{ currentCarsWarehouse.cars_location }}
+      </div>
+    </div>
+
+    <div *ngIf="!currentCar">
+      <p>Please click on a car...</p>
+    </div>
   </div>
 
 
