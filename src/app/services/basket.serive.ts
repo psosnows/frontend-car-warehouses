@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {CarModel} from '../models/car.model';
 
+function round(value: number, decimals: number): number {
+  return Number((value).toFixed(decimals));
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,11 +16,11 @@ export class BasketService {
   addToBaseket(currentCar: CarModel): void {
     this.lastCarIndex = this.selectedCars.length;
     this.selectedCars.push(currentCar);
-    this.grandTotal = this.grandTotal + currentCar.price;
+    this.grandTotal = round(this.grandTotal + currentCar.price, 2);
   }
 
   removeCar(i: number): void {
-    this.grandTotal = this.grandTotal - this.selectedCars[i].price;
+    this.grandTotal = round(this.grandTotal - this.selectedCars[i].price, 2);
     if (i > -1) {
       this.selectedCars.splice(i, 1);
     }
