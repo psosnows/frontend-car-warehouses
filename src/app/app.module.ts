@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {CarListComponent} from './components/car-list/car-list.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
   ],
   imports: [
     BrowserModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
