@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import {CarListComponent} from './components/car-list/car-list.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NgxPaginationModule,
     ReactiveFormsModule
   ],
