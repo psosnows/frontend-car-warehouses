@@ -1,0 +1,22 @@
+<div>
+  <label><strong>Grand Total:</strong></label> {{basketService.grandTotal}}
+</div>
+<br>
+<div>
+  <label><strong>Selected cars</strong></label>
+  <div class="col-md-6">
+
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let car of basketService.selectedCars;
+            let i = index;"
+      >
+        {{ car.make }} - {{ car.year_model }} <button (click)="removeCar(i)">Remove</button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="basketService.selectedCars.length == 0">
+    No selections so far...
+  </div>
+</div>

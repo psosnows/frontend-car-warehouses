@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CarModel} from '../../models/car.model';
 import {BackendQueryService} from '../../services/backend-query.service';
 import {WarehouseModel} from '../../models/warehouse.model';
+import {BasketService} from '../../services/basket.serive';
 
 @Component({
   selector: 'app-car-list',
@@ -22,7 +23,7 @@ export class CarListComponent implements OnInit {
   pageSizes = [5, 10, 15];
 
 
-  constructor(private backendQueryService: BackendQueryService) { }
+  constructor(private backendQueryService: BackendQueryService, private basketService: BasketService) { }
 
   ngOnInit(): void {
     this.retrieveCars();
@@ -85,7 +86,7 @@ export class CarListComponent implements OnInit {
         });
   }
 
-  setActiveCar(car: CarModel, i: number): void {
+  setActiveCar(car: CarModel): void {
     if (car.is_licensed) {
       this.currentCar = car;
       this.currentCarsWarehouse = this.retrieveWarehouse(car.warehouse_id);
@@ -95,5 +96,9 @@ export class CarListComponent implements OnInit {
       this.currentCarsWarehouse = null;
       this.selectionText = 'This car is not licensed for sale.';
     }
+  }
+
+  addToBasket(currentCar: CarModel): void {
+    this.basketService.addToBaseket(currentCar);
   }
 }

@@ -1,0 +1,17 @@
+
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin-left: 5%;
+  margin-top: 2%;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  align-content: flex-start;
+
+}
