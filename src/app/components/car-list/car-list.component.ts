@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CarModel} from '../../models/car.model';
 
 @Component({
   selector: 'app-car-list',
@@ -6,6 +7,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./components/car-list.component.css']
 })
 export class CarListComponent implements OnInit {
+  cars: CarModel[] = [];
+  currentCar?: CarModel;
+
   ngOnInit(): void {
   }
 }
